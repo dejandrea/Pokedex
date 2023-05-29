@@ -1,23 +1,23 @@
-convertPokemonToLi = (pokemon, index) => {
-  index++;
+
+convertPokemonToLi = (pokemon) => {
+  
   let cod;
-  if (index < 10) {
-    cod = "#00"+index;
+  if (pokemon.cod < 10) {
+    cod = "#00"+pokemon.cod;
   } else {
-    cod = "#0"+index;
+    cod = "#0"+pokemon.cod;
   }
   return `   
-        <li class="pokemon">
+        <li class="pokemon ${pokemon.type}">
             <span class="number">${cod}</span>
             <span class="name">${pokemon.name}</span>
 
             <div class="detail">
                 <ol class="types">
-                <li class="type">grass</li>
-                <li class="type">poison</li>
+                    ${pokemon.types.map(type => `<li class="type ${type}">${type}</li>`).join("")}
                 </ol>
                 <img
-                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${index}.svg"
+                src="${pokemon.image}"
                 alt="${pokemon.name}"
                 />
             </div>
@@ -25,7 +25,7 @@ convertPokemonToLi = (pokemon, index) => {
         `;
 };
 
-pokeApi.getPokemons(0,20).then((pokemonList = []) => {
+pokeApi.getPokemons(0,50).then((pokemonList = []) => {
   // debugger;
 
   document.getElementById("pokemonList").innerHTML += pokemonList
